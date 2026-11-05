@@ -1,0 +1,20 @@
+{:paths ["src"]
+ :deps
+ {org.clojure/clojure {:mvn/version "1.12.6"}
+  org.clojure/tools.cli {:mvn/version "1.4.256"}
+  org.lwjgl/lwjgl-stb {:mvn/version "3.4.3"},
+  org.lwjgl/lwjgl-openal {:mvn/version "3.4.3"},
+  org.joml/joml-primitives {:mvn/version "1.10.0"},
+  org.lwjgl/lwjgl-assimp$natives-linux {:mvn/version "3.4.3"},
+  org.joml/joml {:mvn/version "1.10.9"},
+  org.lwjgl/lwjgl-opengl$natives-linux {:mvn/version "3.4.3"},
+  org.lwjgl/lwjgl-stb$natives-linux {:mvn/version "3.4.3"},
+  org.lwjgl/lwjgl-nfd$natives-linux {:mvn/version "3.4.3"},
+  org.lwjgl/lwjgl-nfd {:mvn/version "3.4.3"},
+  org.lwjgl/lwjgl {:mvn/version "3.4.3"},
+  org.lwjgl/lwjgl-assimp {:mvn/version "3.4.3"},
+  org.lwjgl/lwjgl-opengl {:mvn/version "3.4.3"},
+  org.lwjgl/lwjgl-glfw$natives-linux {:mvn/version "3.4.3"},
+  org.lwjgl/lwjgl$natives-linux {:mvn/version "3.4.3"},
+  org.lwjgl/lwjgl-openal$natives-linux {:mvn/version "3.4.3"},
+  org.lwjgl/lwjgl-glfw {:mvn/version "3.4.3"}}}
