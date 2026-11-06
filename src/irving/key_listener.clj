@@ -15,3 +15,9 @@
     (= action GLFW/GLFW_RELEASE)
     (swap! key-state
            #(assoc-in % [:key-pressed key] false))))
+
+(defn key-pressed?
+  [key]
+  (-> @key-state
+      :key-pressed
+      (get key)))
