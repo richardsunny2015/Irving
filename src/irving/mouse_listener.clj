@@ -1,4 +1,4 @@
-(ns irving.mouse
+(ns irving.mouse-listener
   (:import [org.lwjgl.glfw GLFW]))
 
 (defonce mouse-state
