@@ -1,4 +1,5 @@
 (ns irving.core
+  (:require [irving.mouse :as mouse])
   (:import [org.lwjgl Version]
            [org.lwjgl.glfw Callbacks GLFW GLFWErrorCallback]
            [org.lwjgl.opengl GL GLCapabilities GL11]
@@ -27,6 +28,9 @@
   (let [window (GLFW/glfwCreateWindow 300 300 "Hello World!" 0 0)]
     (when (nil? window)
       (throw (RuntimeException. "Failed to create window!")))
+    (GLFW/glfwSetCursorPosCallback window mouse/mouse-pos-callback)
+    (GLFW/glfwSetMouseButtonCallback window mouse/mouse-button-callback)
+    (GLFW/glfwSetScrollCallback window mouse/mouse-scroll-callback)
     (GLFW/glfwSetKeyCallback
      window
      ;; may need to proxy this:
@@ -50,7 +54,7 @@
 (defn game-loop
   [window]
   (GL/createCapabilities)
-  (GL11/glClearColor 1.0 0.0 0.0 0.0)
+  (GL11/glClearColor 1.0 1.0 1.0 0.0)
   (while (not (GLFW/glfwWindowShouldClose window))
     (render window)))
 
