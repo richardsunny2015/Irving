@@ -44,3 +44,9 @@
          #(merge %
                  {:scroll-x x-offset
                   :scroll-y y-offset})))
+
+(defn button-is-pressed?
+  [button]
+  (-> @mouse-state
+      :mouse-button-pressed
+      (get button)))
