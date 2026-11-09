@@ -6,6 +6,8 @@
            [org.lwjgl.opengl GL GLCapabilities GL11]
            [org.lwjgl.system MemoryStack]))
 
+(defonce state (atom {}))
+
 (defn get-window-size
   [window]
   (with-open [stack (MemoryStack/stackPush)]
