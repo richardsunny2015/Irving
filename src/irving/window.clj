@@ -28,7 +28,7 @@
     (throw (IllegalStateException. "Unable to initialize GLFW")))
   (GLFW/glfwWindowHint GLFW/GLFW_VISIBLE GLFW/GLFW_FALSE)
   (GLFW/glfwWindowHint GLFW/GLFW_RESIZABLE GLFW/GLFW_TRUE)
-  (let [window (GLFW/glfwCreateWindow 300 300 "Hello World!" 0 0)]
+  (let [window (GLFW/glfwCreateWindow 1280 720 "Hello World!" 0 0)]
     (when (nil? window)
       (throw (RuntimeException. "Failed to create window!")))
     (GLFW/glfwSetCursorPosCallback window mouse-listener/mouse-pos-callback)
