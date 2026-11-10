@@ -5,10 +5,12 @@
     [org.lwjgl.opengl GL GL11]
     [org.lwjgl.system MemoryStack]))
 
+;; may need something for maths
+;; vector3f
+;; matrix4f
+
 (defonce state
-  (atom {:running true
-         :width 1280
-         :height 720}))
+  (atom {:running true}))
 
 (defn- update-game
   []
@@ -39,7 +41,7 @@
     (throw (IllegalStateException. "Unable to initialize GLFW")))
   (GLFW/glfwWindowHint GLFW/GLFW_VISIBLE GLFW/GLFW_FALSE)
   (GLFW/glfwWindowHint GLFW/GLFW_RESIZABLE GLFW/GLFW_TRUE)
-  (let [window (GLFW/glfwCreateWindow (:width @state) (:height @state) "Flappy" 0 0)]
+  (let [window (GLFW/glfwCreateWindow 1280 720 "Flappy" 0 0)]
     (when (nil? window)
       (throw (RuntimeException. "Failed to create window!")))
     (GLFW/glfwSetKeyCallback window input/key-callback)
@@ -48,7 +50,8 @@
     (GLFW/glfwSwapInterval 1)
     (GLFW/glfwShowWindow window)
     (GL/createCapabilities)
-    (GL11/glClearColor 1.0 1.0 1.0 1.0)
+    (GL11/glEnable GL11/GL_DEPTH_TEST)
+    (GL11/glClearColor 1.0 0.0 1.0 1.0)
     window))
 
 (defn- run-engine
