@@ -8,7 +8,6 @@
 
 (defn key-callback
   [window key scancode action mods]
-  (println "Are we getting called?")
   (swap! state #(assoc-in %
                           [:keys key]
                           (not= action GLFW/GLFW_RELEASE))))

@@ -1,8 +1,8 @@
 (ns irving.core
-  (:require [irving.window :as window]
-            [irving.v2.input :as input])
+  (:require [irving.v2.input :as input])
   (:import
-    [org.lwjgl.glfw GLFW]
+    [org.lwjgl.glfw Callbacks GLFW]
+    [org.lwjgl.opengl GL GL11]
     [org.lwjgl.system MemoryStack]))
 
 (defonce state
@@ -13,12 +13,13 @@
 (defn- update-game
   []
   (GLFW/glfwPollEvents)
-  (println "Are we in here?")
   (when (input/key-pressed? GLFW/GLFW_KEY_SPACE)
     (println "FLAP!")))
 
 (defn- render
   [window]
+  (GL11/glClear (bit-or GL11/GL_COLOR_BUFFER_BIT
+                        GL11/GL_DEPTH_BUFFER_BIT))
   (GLFW/glfwSwapBuffers window))
 
 (defn get-window-size
@@ -41,8 +42,8 @@
   (let [window (GLFW/glfwCreateWindow (:width @state) (:height @state) "Flappy" 0 0)]
     (when (nil? window)
       (throw (RuntimeException. "Failed to create window!")))
-    (get-window-size window)
     (GLFW/glfwSetKeyCallback window input/key-callback)
+    (get-window-size window)
     (GLFW/glfwMakeContextCurrent window)
     (GLFW/glfwSwapInterval 1)
     (GLFW/glfwShowWindow window)
@@ -51,19 +52,22 @@
 (defn- run-engine
   []
   (let [window (init)]
+    (GL/createCapabilities)
     (while (:running @state)
       (update-game)
       (render window)
-      (when-not (GLFW/glfwWindowShouldClose window)
-        (swap! state #(assoc % :running false))))))
+      (when (GLFW/glfwWindowShouldClose window)
+        (swap! state #(assoc % :running false))))
+    (Callbacks/glfwFreeCallbacks window)
+    (GLFW/glfwDestroyWindow window)
+    (GLFW/glfwTerminate)
+    (.free (GLFW/glfwSetErrorCallback nil))))
 
 (defn- start
   []
-  (.start (Thread. run-engine))
-  #_(run-engine))
+  (.start (Thread. run-engine)))
 
 (defn -main
   []
   (println "Here goes nothing")
-  #_(start)
-  (window/run))
+  (start))
