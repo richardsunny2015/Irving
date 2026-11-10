@@ -47,12 +47,13 @@
     (GLFW/glfwMakeContextCurrent window)
     (GLFW/glfwSwapInterval 1)
     (GLFW/glfwShowWindow window)
+    (GL/createCapabilities)
+    (GL11/glClearColor 1.0 1.0 1.0 1.0)
     window))
 
 (defn- run-engine
   []
   (let [window (init)]
-    (GL/createCapabilities)
     (while (:running @state)
       (update-game)
       (render window)
@@ -69,5 +70,6 @@
 
 (defn -main
   []
+  (swap! state #(assoc % :running true))
   (println "Here goes nothing")
   (start))
